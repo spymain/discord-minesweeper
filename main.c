@@ -2,16 +2,16 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include "fio.h"
 
-#define BOMB_RATIO 0.1
-#define SEED 58439
+#define BOMB_RATIO 0.2
 
 int main(int argc, char *argv[]){
 	char *board;
 	int sidelen, bombs, head;
 	if(argc < 2 || !atoi(argv[1])){
 		printf(
-				"Usage: %s <sidelength> [bombs]\n",
+				"Usage: %s <sidelength> [bombs] [outfile]\n",
 				argv[0]
 		);
 		return -1;
@@ -88,6 +88,12 @@ int main(int argc, char *argv[]){
 		);
 	}
 	puts("\n");
+	//Print to file
+	if(argc > 3){
+		printf("Saving to %s...", argv[3]);
+		discordFormat(board, sidelen, argv[3]);
+		puts("Done.");
+	}
 	free(board);
 	return 0;
 } 
